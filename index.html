@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwiftFunds – Instant Loans, Real Speed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0B1120;
+  --ink2:#1E2A42;
+  --cream:#F7F3EC;
+  --amber:#E8A020;
+  --amber2:#C47D0A;
+  --amber-lt:#FFF4D9;
+  --teal:#0D8C72;
+  --teal-lt:#E0F5EF;
+  --slate:#3A4A6B;
+  --mid:#6B7A99;
+  --border:#E2E8F0;
+  --card:#FFFFFF;
+  --radius:16px;
+  --shadow:0 4px 32px rgba(11,17,32,0.10);
+  --shadow-lg:0 12px 48px rgba(11,17,32,0.16);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+  font-size:16px;
+  line-height:1.65;
+}
+
+/* ── NAV ──────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(247,243,236,0.85);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(11,17,32,0.08);
+  padding:0 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  height:68px;
+  animation:slideDown .6s ease both;
+}
+@keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+
+.logo{
+  font-family:'Syne',sans-serif;
+  font-weight:800;font-size:1.55rem;
+  color:var(--ink);
+  letter-spacing:-.5px;
+  text-decoration:none;
+}
+.logo span{color:var(--amber);}
+
+.nav-links{display:flex;align-items:center;gap:2rem;}
+.nav-links a{
+  color:var(--slate);font-size:.9rem;font-weight:500;
+  text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--ink);}
+
+.nav-cta{
+  background:var(--ink);color:var(--cream);
+  padding:.55rem 1.4rem;border-radius:50px;
+  font-size:.88rem;font-weight:600;
+  text-decoration:none;
+  transition:background .2s,transform .15s;
+  display:flex;align-items:center;gap:.4rem;
+}
+.nav-cta:hover{background:var(--ink2);transform:scale(1.04);}
+
+/* ── HERO ─────────────────────────────── */
+#hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:100px 5% 60px;
+  gap:3rem;
+  position:relative;overflow:hidden;
+}
+.hero-bg-dot{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle, var(--amber) 0%, transparent 70%);
+  opacity:.12;pointer-events:none;
+}
+
+.tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--amber-lt);
+  color:var(--amber2);
+  font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  padding:.35rem 1rem;border-radius:50px;
+  border:1px solid rgba(232,160,32,.35);
+  margin-bottom:1.2rem;
+  animation:fadeUp .7s .3s both;
+}
+.hero-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.4rem,4.5vw,3.8rem);
+  font-weight:800;
+  line-height:1.1;
+  letter-spacing:-.03em;
+  color:var(--ink);
+  animation:fadeUp .7s .45s both;
+}
+.hero-title em{
+  font-style:normal;
+  color:var(--teal);
+  position:relative;
+}
+.hero-title em::after{
+  content:'';position:absolute;left:0;bottom:-2px;width:100%;height:3px;
+  background:var(--amber);border-radius:2px;
+}
+.hero-sub{
+  margin-top:1.1rem;
+  font-size:1.05rem;color:var(--slate);
+  max-width:460px;
+  animation:fadeUp .7s .6s both;
+}
+.hero-actions{
+  display:flex;align-items:center;gap:1rem;
+  margin-top:2rem;
+  animation:fadeUp .7s .75s both;
+}
+.btn-primary{
+  background:var(--ink);color:var(--cream);
+  padding:.8rem 1.9rem;border-radius:50px;
+  font-size:.95rem;font-weight:600;
+  text-decoration:none;
+  border:none;cursor:pointer;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  box-shadow:0 4px 16px rgba(11,17,32,.2);
+}
+.btn-primary:hover{background:var(--ink2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,17,32,.28);}
+
+.btn-outline{
+  color:var(--ink);
+  padding:.8rem 1.6rem;border-radius:50px;
+  font-size:.95rem;font-weight:500;
+  text-decoration:none;
+  border:1.5px solid var(--ink);
+  transition:background .2s,transform .15s;
+}
+.btn-outline:hover{background:var(--ink);color:var(--cream);}
+
+.hero-pills{
+  display:flex;flex-wrap:wrap;gap:.6rem;
+  margin-top:1.4rem;
+  animation:fadeUp .7s .9s both;
+}
+.pill{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:50px;
+  padding:.3rem .9rem;
+  font-size:.8rem;font-weight:500;color:var(--slate);
+  display:flex;align-items:center;gap:.4rem;
+}
+.pill-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);}
+
+/* ── HERO CARD ─────────────────────────── */
+.hero-card-wrap{
+  animation:floatIn .9s .4s both;
+  position:relative;
+}
+@keyframes floatIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+
+.loan-calc-card{
+  background:var(--card);
+  border-radius:24px;
+  padding:2rem;
+  box-shadow:var(--shadow-lg);
+  border:1px solid var(--border);
+}
+.calc-title{
+  font-family:'Syne',sans-serif;
+  font-size:1.15rem;font-weight:700;
+  margin-bottom:1.4rem;color:var(--ink);
+}
+.range-group{margin-bottom:1.2rem;}
+.range-label{
+  display:flex;justify-content:space-between;
+  font-size:.82rem;color:var(--mid);font-weight:500;
+  margin-bottom:.5rem;
+}
+.range-val{color:var(--ink);font-weight:600;font-size:.95rem;}
+input[type=range]{
+  width:100%;height:5px;
+  -webkit-appearance:none;appearance:none;
+  background:linear-gradient(to right, var(--teal) 0%, var(--teal) 50%, var(--border) 50%, var(--border) 100%);
+  border-radius:10px;outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--ink);border:3px solid white;
+  box-shadow:0 2px 8px rgba(11,17,32,.25);
+  cursor:pointer;transition:transform .15s;
+}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);}
+
+.emi-row{
+  background:var(--cream);border-radius:12px;
+  padding:1rem 1.25rem;
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:1rem;
+}
+.emi-label{font-size:.8rem;color:var(--mid);font-weight:500;}
+.emi-value{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;color:var(--ink);}
+.emi-sub{font-size:.75rem;color:var(--teal);font-weight:500;}
+
+.calc-btn{
+  width:100%;background:var(--amber);color:var(--ink);
+  border:none;border-radius:50px;padding:.85rem;
+  font-size:.95rem;font-weight:700;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:background .2s,transform .15s;
+  margin-top:.5rem;
+}
+.calc-btn:hover{background:var(--amber2);color:white;transform:scale(1.02);}
+
+/* ── STATS BAR ─────────────────────────── */
+#stats{
+  background:var(--ink);
+  padding:2rem 5%;
+  display:flex;justify-content:space-around;flex-wrap:wrap;gap:1.5rem;
+}
+.stat-item{
+  text-align:center;
+  opacity:0;
+  animation:countUp .8s ease both;
+}
+.stat-item:nth-child(1){animation-delay:.1s}
+.stat-item:nth-child(2){animation-delay:.25s}
+.stat-item:nth-child(3){animation-delay:.4s}
+.stat-item:nth-child(4){animation-delay:.55s}
+@keyframes countUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.stat-num{
+  font-family:'Syne',sans-serif;
+  font-size:2rem;font-weight:800;
+  color:var(--amber);
+  display:block;
+}
+.stat-lbl{font-size:.82rem;color:rgba(247,243,236,.65);font-weight:400;margin-top:.2rem;}
+
+/* ── SERVICES ─────────────────────────── */
+#services{padding:5rem 5%;text-align:center;}
+.section-tag{
+  display:inline-block;
+  background:var(--teal-lt);color:var(--teal);
+  font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:.3rem .9rem;border-radius:50px;
+  margin-bottom:.8rem;
+}
+.section-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.8rem,3.2vw,2.6rem);
+  font-weight:800;letter-spacing:-.03em;
+  max-width:580px;margin:0 auto .5rem;
+}
+.section-sub{color:var(--slate);max-width:500px;margin:0 auto 3rem;font-size:.95rem;}
+
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.25rem;text-align:left;
+}
+.service-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.8rem;
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+  position:relative;overflow:hidden;
+  cursor:default;
+}
+.service-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--amber);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s;
+}
+.service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:rgba(232,160,32,.4);}
+.service-card:hover::before{transform:scaleX(1);}
+
+.sc-icon{
+  width:50px;height:50px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;margin-bottom:1.1rem;
+}
+.sc-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.5rem;}
+.sc-desc{font-size:.85rem;color:var(--slate);line-height:1.6;}
+.sc-amount{
+  display:inline-block;margin-top:.9rem;
+  font-size:.78rem;font-weight:600;
+  color:var(--teal);background:var(--teal-lt);
+  padding:.2rem .7rem;border-radius:50px;
+}
+
+/* ── HOW IT WORKS ─────────────────────── */
+#how{background:var(--ink);padding:5rem 5%;color:white;}
+#how .section-title{color:white;}
+#how .section-sub{color:rgba(247,243,236,.65);}
+#how .section-tag{background:rgba(232,160,32,.15);color:var(--amber);}
+
+.steps-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.5rem;margin-top:3rem;
+  position:relative;
+}
+.step-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--radius);
+  padding:1.8rem;
+  position:relative;
+  transition:background .25s,transform .25s;
+}
+.step-card:hover{background:rgba(255,255,255,.09);transform:translateY(-4px);}
+
+.step-num{
+  font-family:'Syne',sans-serif;
+  font-size:3rem;font-weight:800;
+  color:rgba(232,160,32,.2);
+  line-height:1;margin-bottom:.7rem;
+}
+.step-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:white;margin-bottom:.5rem;}
+.step-desc{font-size:.84rem;color:rgba(247,243,236,.6);line-height:1.6;}
+
+/* ── WHY US ───────────────────────────── */
+#why{padding:5rem 5%;}
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.25rem;margin-top:3rem;
+}
+.why-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.6rem;
+  display:flex;gap:1rem;align-items:flex-start;
+  transition:box-shadow .25s,transform .25s;
+}
+.why-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+.why-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:var(--amber-lt);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;flex-shrink:0;
+}
+.why-title{font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:.3rem;}
+.why-desc{font-size:.83rem;color:var(--slate);line-height:1.55;}
+
+/* ── TESTIMONIALS ─────────────────────── */
+#testimonials{background:var(--cream);padding:5rem 5%;overflow:hidden;}
+.testi-track{
+  display:flex;gap:1.5rem;
+  animation:ticker 28s linear infinite;
+  width:max-content;
+}
+.testi-track:hover{animation-play-state:paused;}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.testi-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.5rem 1.8rem;
+  width:300px;flex-shrink:0;
+}
+.testi-stars{color:var(--amber);font-size:1rem;margin-bottom:.7rem;letter-spacing:.1em;}
+.testi-text{font-size:.88rem;color:var(--slate);line-height:1.65;font-style:italic;}
+.testi-name{margin-top:1rem;font-size:.82rem;font-weight:600;color:var(--ink);}
+.testi-loc{font-size:.76rem;color:var(--mid);}
+
+/* ── CONTACT / CTA ───────────────────── */
+#contact{
+  padding:5rem 5%;
+  background:var(--ink);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+}
+#contact .section-title{color:white;text-align:left;}
+#contact .section-sub{color:rgba(247,243,236,.65);text-align:left;margin:0 0 2rem;}
+
+.contact-channels{display:flex;flex-direction:column;gap:1rem;}
+.channel-btn{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.1rem 1.5rem;border-radius:14px;
+  text-decoration:none;font-weight:600;
+  transition:transform .2s,box-shadow .2s;
+  border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.95rem;
+}
+.channel-btn:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.3);}
+.whatsapp-btn{background:#25D366;color:white;}
+.telegram-btn{background:#229ED9;color:white;}
+.phone-btn{background:var(--amber);color:var(--ink);}
+.channel-icon{font-size:1.3rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.channel-info{display:flex;flex-direction:column;}
+.channel-title{font-size:.95rem;font-weight:700;line-height:1.1;}
+.channel-sub{font-size:.75rem;opacity:.8;font-weight:400;}
+
+.contact-form{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:20px;
+  padding:2rem;
+}
+.form-title{
+  font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;
+  color:white;margin-bottom:1.2rem;
+}
+.form-group{margin-bottom:1rem;}
+.form-group label{display:block;font-size:.8rem;color:rgba(247,243,236,.6);margin-bottom:.35rem;font-weight:500;}
+.form-group input,.form-group select{
+  width:100%;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:10px;padding:.7rem 1rem;
+  color:white;font-size:.9rem;font-family:'DM Sans',sans-serif;
+  outline:none;transition:border-color .2s;
+}
+.form-group input::placeholder{color:rgba(255,255,255,.3);}
+.form-group input:focus,.form-group select:focus{border-color:var(--amber);}
+.form-group select option{background:var(--ink);}
+.submit-btn{
+  width:100%;background:var(--amber);color:var(--ink);
+  border:none;border-radius:50px;padding:.85rem;
+  font-size:.95rem;font-weight:700;cursor:pointer;
+  font-family:'Syne',sans-serif;
+  transition:background .2s,transform .15s;margin-top:.5rem;
+}
+.submit-btn:hover{background:#d4900c;transform:scale(1.02);}
+
+/* ── FOOTER ───────────────────────────── */
+footer{
+  background:#070D1A;
+  padding:2.5rem 5%;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.footer-logo{
+  font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;
+  color:var(--cream);text-decoration:none;
+}
+.footer-logo span{color:var(--amber);}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.footer-links a{color:rgba(247,243,236,.5);font-size:.8rem;text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--cream);}
+.footer-copy{color:rgba(247,243,236,.35);font-size:.78rem;}
+
+/* ── FLOATING WA/TG ───────────────────── */
+.float-btns{
+  position:fixed;bottom:2rem;right:2rem;z-index:200;
+  display:flex;flex-direction:column;gap:.7rem;
+  align-items:flex-end;
+}
+.float-btn{
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;
+  text-decoration:none;
+  box-shadow:0 4px 20px rgba(0,0,0,.25);
+  transition:transform .2s,box-shadow .2s;
+  position:relative;
+}
+.float-btn:hover{transform:scale(1.1);box-shadow:0 8px 28px rgba(0,0,0,.35);}
+.float-btn .tooltip{
+  position:absolute;right:60px;top:50%;transform:translateY(-50%);
+  background:var(--ink);color:white;
+  font-size:.75rem;font-weight:600;
+  padding:.3rem .8rem;border-radius:8px;white-space:nowrap;
+  opacity:0;transition:opacity .2s;pointer-events:none;
+}
+.float-btn:hover .tooltip{opacity:1;}
+.fb-wa{background:#25D366;}
+.fb-tg{background:#229ED9;}
+
+/* ── ANIMATIONS ──────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ──────────────────────── */
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr;padding:90px 5% 40px;}
+  .hero-card-wrap{display:none;}
+  #contact{grid-template-columns:1fr;}
+  nav .nav-links{display:none;}
+}
+@media(max-width:600px){
+  .nav-cta span{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">Swift<span>Funds</span></a>
+  <div class="nav-links">
+    <a href="#services">Loans</a>
+    <a href="#how">Process</a>
+    <a href="#why">Why Us</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a class="nav-cta" href="#contact">Apply Now
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-dot" style="width:600px;height:600px;top:-200px;right:-150px;"></div>
+  <div class="hero-bg-dot" style="width:300px;height:300px;bottom:0;left:-100px;background:radial-gradient(circle,var(--teal) 0%,transparent 70%);"></div>
+  <div class="hero-left">
+    <div class="tag">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+      Trusted by 10 Lakh+ Indians
+    </div>
+    <h1 class="hero-title">Instant Loans,<br><em>Zero Hassle</em></h1>
+    <p class="hero-sub">Personal loans, business finance, two-wheeler, home & more — 100% online, disbursed in minutes, directly to your bank.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#contact">Get Loan Now</a>
+      <a class="btn-outline" href="#how">How It Works</a>
+    </div>
+    <div class="hero-pills">
+      <div class="pill"><span class="pill-dot"></span>₹6,000 – ₹50 Lakhs</div>
+      <div class="pill"><span class="pill-dot"></span>10-Min Disbursal</div>
+      <div class="pill"><span class="pill-dot"></span>No Hidden Charges</div>
+      <div class="pill"><span class="pill-dot"></span>RBI Registered</div>
+    </div>
+  </div>
+
+  <!-- EMI CALCULATOR -->
+  <div class="hero-card-wrap">
+    <div class="loan-calc-card">
+      <div class="calc-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:.4rem"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Quick EMI Calculator
+      </div>
+      <div class="range-group">
+        <div class="range-label"><span>Loan Amount</span><span class="range-val" id="amtVal">₹5,00,000</span></div>
+        <input type="range" id="loanAmt" min="10000" max="5000000" step="10000" value="500000">
+      </div>
+      <div class="range-group">
+        <div class="range-label"><span>Tenure</span><span class="range-val" id="tenVal">24 months</span></div>
+        <input type="range" id="tenure" min="6" max="60" step="1" value="24">
+      </div>
+      <div class="range-group">
+        <div class="range-label"><span>Interest Rate</span><span class="range-val" id="rateVal">12%</span></div>
+        <input type="range" id="rate" min="10" max="36" step="0.5" value="12">
+      </div>
+      <div class="emi-row">
+        <div>
+          <div class="emi-label">Monthly EMI</div>
+          <div class="emi-sub">Approx. amount</div>
+        </div>
+        <div class="emi-value" id="emiResult">₹23,537</div>
+      </div>
+      <button class="calc-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Apply for This Loan →</button>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stat-item">
+    <span class="stat-num" data-target="10">0</span>
+    <div class="stat-lbl">Lakh+ Happy Customers</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" data-target="5000">0</span>
+    <div class="stat-lbl">Crores+ Disbursed</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" data-target="10">0</span>
+    <div class="stat-lbl">Minute Avg. Disbursal</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" data-target="100">0</span>
+    <div class="stat-lbl">% Paperless Process</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-tag">Our Products</div>
+  <h2 class="section-title">Loans for Every<br>Life Moment</h2>
+  <p class="section-sub">Whether it's a dream bike, a medical emergency, or scaling your business — we've got you covered.</p>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="sc-icon" style="background:#E0F5EF;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0D8C72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      </div>
+      <div class="sc-title">Personal Loan</div>
+      <div class="sc-desc">Handle emergencies, travel, education or any personal need with flexible repayment options.</div>
+      <span class="sc-amount">₹6,000 – ₹10 Lakhs</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="sc-icon" style="background:#FFF4D9;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C47D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div class="sc-title">Business Loan</div>
+      <div class="sc-desc">Expand inventory, hire talent or grow your enterprise with quick, collateral-free business loans.</div>
+      <span class="sc-amount">Up to ₹1 Crore</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="sc-icon" style="background:#EEF2FF;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/><path d="M15 6H9l-3 8h12l-3-8z"/><path d="M9 6V4"/><path d="M15 6V4"/></svg>
+      </div>
+      <div class="sc-title">Two-Wheeler Loan</div>
+      <div class="sc-desc">Finance your dream ride — from scooters to premium bikes — with easy monthly installments.</div>
+      <span class="sc-amount">Up to ₹10 Lakhs</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="sc-icon" style="background:#FEF2F2;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div class="sc-title">Home Loan</div>
+      <div class="sc-desc">Make your dream home a reality with competitive interest rates and long repayment tenures.</div>
+      <span class="sc-amount">Up to ₹75 Lakhs</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="sc-icon" style="background:#F0FDF4;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+      </div>
+      <div class="sc-title">Loan Against Property</div>
+      <div class="sc-desc">Leverage your property as collateral for a large-value loan at competitive rates.</div>
+      <span class="sc-amount">Up to ₹1 Crore</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="sc-icon" style="background:#FFF7ED;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <div class="sc-title">Education Loan</div>
+      <div class="sc-desc">Invest in your future. Fund tuition, books and living expenses without financial stress.</div>
+      <span class="sc-amount">Up to ₹20 Lakhs</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div style="text-align:center;">
+    <div class="section-tag">Simple Process</div>
+    <h2 class="section-title reveal">Get Money in 4 Easy Steps</h2>
+    <p class="section-sub reveal">From application to bank account in under 10 minutes — no branch visits, no paperwork.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num">01</div>
+      <div class="step-title">Apply Online</div>
+      <div class="step-desc">Fill our quick 2-minute form on WhatsApp, Telegram, or website — anytime, anywhere.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">02</div>
+      <div class="step-title">Upload Documents</div>
+      <div class="step-desc">Just Aadhaar, PAN and a bank statement. Everything is verified digitally in seconds.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">03</div>
+      <div class="step-title">Get Approved</div>
+      <div class="step-desc">Our smart system gives instant approval decisions — no waiting days for callbacks.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">04</div>
+      <div class="step-title">Receive Money</div>
+      <div class="step-desc">Funds hit your bank account in minutes after approval. No delays, no excuses.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why" style="text-align:center;">
+  <div class="section-tag">Why SwiftFunds</div>
+  <h2 class="section-title reveal">Built Around<br>Your Needs</h2>
+  <p class="section-sub reveal">We're not just a loan provider — we're your financial partner.</p>
+  <div class="why-grid" style="text-align:left;">
+    <div class="why-card reveal"><div class="why-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C47D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    </div><div><div class="why-title">Low Interest Rates</div><div class="why-desc">Competitive rates starting from 10% per annum, tailored to your credit profile.</div></div></div>
+    <div class="why-card reveal"><div class="why-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C47D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    </div><div><div class="why-title">Instant Disbursal</div><div class="why-desc">Money in your account within 10 minutes of approval. Speed is our promise.</div></div></div>
+    <div class="why-card reveal"><div class="why-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C47D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+    </div><div><div class="why-title">100% Digital</div><div class="why-desc">Apply via WhatsApp or Telegram. No branch, no courier, no physical paperwork.</div></div></div>
+    <div class="why-card reveal"><div class="why-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C47D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div><div><div class="why-title">Safe & Transparent</div><div class="why-desc">RBI-registered. Bank-grade encryption. No hidden fees — ever.</div></div></div>
+    <div class="why-card reveal"><div class="why-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C47D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </div><div><div class="why-title">Collateral-Free</div><div class="why-desc">Most of our loans require zero collateral or guarantors. Trust, not assets.</div></div></div>
+    <div class="why-card reveal"><div class="why-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C47D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </div><div><div class="why-title">24/7 Support</div><div class="why-desc">WhatsApp and Telegram support available round the clock for any queries.</div></div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div style="text-align:center;margin-bottom:2.5rem;">
+    <div class="section-tag">Reviews</div>
+    <h2 class="section-title reveal">10 Lakh+ People Trust Us</h2>
+  </div>
+  <div style="overflow:hidden;">
+    <div class="testi-track" id="testiTrack">
+      <!-- original -->
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"Applied at 11pm, money in account by 11:10pm. Absolutely incredible speed. This is the future of banking!"</div><div class="testi-name">Rahul Mehta</div><div class="testi-loc">Mumbai, Maharashtra</div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"My bike loan was approved in minutes. The WhatsApp process was so easy — even my dad figured it out!"</div><div class="testi-name">Priya Sharma</div><div class="testi-loc">Bengaluru, Karnataka</div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★☆</div><div class="testi-text">"Got a business loan without any collateral. Used it to open my second outlet. Best decision ever."</div><div class="testi-name">Kiran Desai</div><div class="testi-loc">Ahmedabad, Gujarat</div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"Transparent process, no hidden charges. I've taken 3 loans so far and every experience was seamless."</div><div class="testi-name">Anjali Rao</div><div class="testi-loc">Hyderabad, Telangana</div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"Education loan processed in under 30 minutes. The support team on Telegram was super helpful!"</div><div class="testi-name">Vikram Singh</div><div class="testi-loc">Delhi</div></div>
+      <!-- duplicate for seamless loop -->
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"Applied at 11pm, money in account by 11:10pm. Absolutely incredible speed. This is the future of banking!"</div><div class="testi-name">Rahul Mehta</div><div class="testi-loc">Mumbai, Maharashtra</div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"My bike loan was approved in minutes. The WhatsApp process was so easy — even my dad figured it out!"</div><div class="testi-name">Priya Sharma</div><div class="testi-loc">Bengaluru, Karnataka</div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★☆</div><div class="testi-text">"Got a business loan without any collateral. Used it to open my second outlet. Best decision ever."</div><div class="testi-name">Kiran Desai</div><div class="testi-loc">Ahmedabad, Gujarat</div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"Transparent process, no hidden charges. I've taken 3 loans so far and every experience was seamless."</div><div class="testi-name">Anjali Rao</div><div class="testi-loc">Hyderabad, Telangana</div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"Education loan processed in under 30 minutes. The support team on Telegram was super helpful!"</div><div class="testi-name">Vikram Singh</div><div class="testi-loc">Delhi</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div>
+    <div class="section-tag">Get In Touch</div>
+    <h2 class="section-title">Reach Us<br>Instantly</h2>
+    <p class="section-sub">Chat with our loan experts on WhatsApp or Telegram — response in under 2 minutes.</p>
+    <div class="contact-channels">
+      <a href="https://wa.me/919999999999?text=Hi%2C%20I%20want%20to%20apply%20for%20a%20loan" class="channel-btn whatsapp-btn" target="_blank" rel="noopener">
+        <span class="channel-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <span class="channel-info">
+          <span class="channel-title">Chat on WhatsApp</span>
+          <span class="channel-sub">Instant response • Available 24/7</span>
+        </span>
+      </a>
+      <a href="https://t.me/swiftfundsloan" class="channel-btn telegram-btn" target="_blank" rel="noopener">
+        <span class="channel-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </span>
+        <span class="channel-info">
+          <span class="channel-title">Message on Telegram</span>
+          <span class="channel-sub">@swiftfundsloan • Fast & secure</span>
+        </span>
+      </a>
+      <a href="tel:+919999999999" class="channel-btn phone-btn">
+        <span class="channel-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
+        <span class="channel-info">
+          <span class="channel-title">Call Us Directly</span>
+          <span class="channel-sub">+91 99999 99999 • Mon–Sat 9am–7pm</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <div class="contact-form">
+    <div class="form-title">Apply in 60 Seconds</div>
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" placeholder="Rahul Mehta">
+    </div>
+    <div class="form-group">
+      <label>Mobile Number</label>
+      <input type="tel" placeholder="+91 98765 43210">
+    </div>
+    <div class="form-group">
+      <label>Loan Type</label>
+      <select>
+        <option>Personal Loan</option>
+        <option>Business Loan</option>
+        <option>Two-Wheeler Loan</option>
+        <option>Home Loan</option>
+        <option>Loan Against Property</option>
+        <option>Education Loan</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Loan Amount Required</label>
+      <input type="text" placeholder="e.g. ₹3,00,000">
+    </div>
+    <button class="submit-btn" onclick="alert('Thank you! Our team will call you within 10 minutes.')">Get Free Consultation →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="#">Swift<span>Funds</span></a>
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Use</a>
+    <a href="#">Grievance</a>
+    <a href="#">RBI Guidelines</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 SwiftFunds. All rights reserved. | NBFC Partner: RBI Registered</div>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<div class="float-btns">
+  <a class="float-btn fb-tg" href="https://t.me/swiftfundsloan" target="_blank" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    <span class="tooltip">Chat on Telegram</span>
+  </a>
+  <a class="float-btn fb-wa" href="https://wa.me/919999999999?text=Hi%2C%20I%20want%20to%20apply%20for%20a%20loan" target="_blank" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span class="tooltip">WhatsApp Us</span>
+  </a>
+</div>
+
+<script>
+// ── EMI Calculator ────────────────────────────
+function calcEMI(){
+  const P=parseInt(document.getElementById('loanAmt').value);
+  const n=parseInt(document.getElementById('tenure').value);
+  const r=parseFloat(document.getElementById('rate').value)/12/100;
+  const emi=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  document.getElementById('emiResult').textContent='₹'+Math.round(emi).toLocaleString('en-IN');
+  document.getElementById('amtVal').textContent='₹'+P.toLocaleString('en-IN');
+  document.getElementById('tenVal').textContent=n+' months';
+  document.getElementById('rateVal').textContent=parseFloat(document.getElementById('rate').value)+'%';
+  // update range gradient
+  ['loanAmt','tenure','rate'].forEach(id=>{
+    const el=document.getElementById(id);
+    const pct=(el.value-el.min)/(el.max-el.min)*100;
+    el.style.background=`linear-gradient(to right,#0D8C72 0%,#0D8C72 ${pct}%,#E2E8F0 ${pct}%,#E2E8F0 100%)`;
+  });
+}
+['loanAmt','tenure','rate'].forEach(id=>document.getElementById(id).addEventListener('input',calcEMI));
+calcEMI();
+
+// ── Scroll Reveal ─────────────────────────────
+const revealEls=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+},{threshold:.15});
+revealEls.forEach(el=>io.observe(el));
+
+// ── Stat Counter ──────────────────────────────
+function animateCount(el, target, suffix=''){
+  let start=0;
+  const dur=1800;
+  const step=target/dur*16;
+  const timer=setInterval(()=>{
+    start=Math.min(start+step, target);
+    el.textContent=(target>=1000?Math.round(start).toLocaleString('en-IN'):Math.round(start))+suffix;
+    if(start>=target)clearInterval(timer);
+  },16);
+}
+const statsSection=document.getElementById('stats');
+const statsIO=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){
+    document.querySelectorAll('.stat-num').forEach(el=>{
+      const t=parseInt(el.dataset.target);
+      animateCount(el,t,t===100?'%':t===10&&el.parentElement.querySelector('.stat-lbl').textContent.includes('minute')?'':'+');
+    });
+    statsIO.disconnect();
+  }
+},{threshold:.3});
+statsIO.observe(statsSection);
+</script>
+</body>
+</html>
